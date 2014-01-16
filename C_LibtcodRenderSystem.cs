@@ -25,7 +25,7 @@ namespace CSharpEntityComponentSystem
             Tile tile;
             tile.backColor = TCODColor.darkestGrey;
             tile.foreColor = TCODColor.lightestGrey;
-            tile.tileChar = ' ';
+            tile.tileChar = '.';
             fillScreenRegion(MainViews[0], tile);
             fillScreenRegion(MainViews[1], tile);
             fillScreenRegion(MainViews[2], tile);
