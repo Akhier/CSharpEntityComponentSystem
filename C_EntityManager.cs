@@ -11,7 +11,9 @@ namespace CSharpEntityComponentSystem
         static private UInt32 _lowestUnsignedID = 0;
         static public Dictionary<UInt32, Dictionary<ComponentName, dynamic>> componentsOnEntities = new Dictionary<uint, Dictionary<ComponentName, dynamic>>();
         static private Dictionary<ComponentName, dynamic> _componentsByName = new Dictionary<ComponentName, dynamic>() {
-            {ComponentName.Health, new HealthComponent()}
+            {ComponentName.Health, new HealthComponent()},
+            {ComponentName.Coord, new CoordinateComponent()},
+            {ComponentName.ScreenRegion, new ScreenRegionComponent()}
         };
 
         /// <summary>

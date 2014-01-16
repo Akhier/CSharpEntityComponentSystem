@@ -11,7 +11,7 @@ namespace CSharpEntityComponentSystem
             return ComponentName.ScreenRegion;
         }
 
-        public ScreenRegionComponent (int x, int y, int width, int height, bool border) {
+        public void setScreenRegion (int x, int y, int width, int height, bool border) {
             X = x;
             Y = y;
             Height = height;
