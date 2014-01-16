@@ -9,41 +9,40 @@ namespace CSharpEntityComponentSystem
 {
     class LibtcodRenderSystem : ECSystem {
         private EntityManager Manager;
-        private UInt32[] MainViews = new UInt32[3];
+        private UInt32[] MainViews = new UInt32[4];
         public LibtcodRenderSystem (int screenwidth, int screenheight, string screentitle, EntityManager manager) {
             TCODConsole.initRoot(screenwidth, screenheight, screentitle);
             Manager = manager;
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 4; i++) {
                 MainViews[i] = Manager.addNewEntity();
                 Manager.addComponentToEntity(ComponentName.ScreenRegion, MainViews[i]);
             }
             TCODConsole.root.setBackgroundColor(TCODColor.darkerGrey);
             TCODConsole.root.setForegroundColor(TCODColor.lightestGrey);
-            setScreenRegion(MainViews[0], 0, 0, 67, 36, true);
+            setScreenRegion(MainViews[0], 0, 0, 69, 36, true);
             setScreenRegion(MainViews[1], 0, 36, 80, 14, true);
-            setScreenRegion(MainViews[2], 67, 0, 13, 36, true);
+            setScreenRegion(MainViews[2], 69, 0, 11, 15, true);
+            setScreenRegion(MainViews[3], 69, 15, 11, 21, true);
             Tile tile;
             tile.backColor = TCODColor.darkestGrey;
             tile.foreColor = TCODColor.lightestGrey;
             tile.tileChar = '.';
             fillScreenRegion(MainViews[0], tile);
+            tile.tileChar = ' ';
             fillScreenRegion(MainViews[1], tile);
             fillScreenRegion(MainViews[2], tile);
+            fillScreenRegion(MainViews[3], tile);
             setRegionUpdate(MainViews[0], true);
             setRegionUpdate(MainViews[1], true);
             setRegionUpdate(MainViews[2], true);
-            tile.tileChar = 'H';
-            _setTileInScreenRegion(MainViews[2], 3, 4, tile);
-            tile.tileChar = 'P';
-            _setTileInScreenRegion(MainViews[2], 4, 4, tile);
-            tile.tileChar = ':';
-            _setTileInScreenRegion(MainViews[2], 5, 4, tile);
-            tile.tileChar = '0';
-            _setTileInScreenRegion(MainViews[2], 7, 4, tile);
-            tile.tileChar = '1';
-            _setTileInScreenRegion(MainViews[2], 8, 4, tile);
-            tile.tileChar = '3';
-            _setTileInScreenRegion(MainViews[2], 9, 4, tile);
+            setRegionUpdate(MainViews[3], true);
+            for (int i = 3; i < 12; i += 2) {
+                _setTileInScreenRegion(MainViews[2], 3, i, 'H', TCODColor.lightestGrey, TCODColor.darkestGrey);
+                _setTileInScreenRegion(MainViews[2], 4, i, 'P', TCODColor.lightestGrey, TCODColor.darkestGrey);
+                _setTileInScreenRegion(MainViews[2], 5, i, ':', TCODColor.lightestGrey, TCODColor.darkestGrey);
+                _setTileInScreenRegion(MainViews[2], 6, i, '0', TCODColor.lightestGrey, TCODColor.darkestGrey);
+                _setTileInScreenRegion(MainViews[2], 7, i, '3', TCODColor.lightestGrey, TCODColor.darkestGrey);
+            }
         }
 
         public void setScreenRegion(UInt32 entity, int x, int y, int width, int height, bool border) {
@@ -110,6 +109,14 @@ namespace CSharpEntityComponentSystem
         }
 
         private void _setTileInScreenRegion (UInt32 screenregionentity, int x, int y, Tile tile) {
+            Manager.componentsOnEntities[screenregionentity][ComponentName.ScreenRegion].tileMap[x, y] = tile;
+        }
+
+        private void _setTileInScreenRegion (UInt32 screenregionentity, int x, int y, char tilechar, TCODColor forecolor, TCODColor backcolor) {
+            Tile tile;
+            tile.tileChar = tilechar;
+            tile.foreColor = forecolor;
+            tile.backColor = backcolor;
             Manager.componentsOnEntities[screenregionentity][ComponentName.ScreenRegion].tileMap[x, y] = tile;
         }
         
