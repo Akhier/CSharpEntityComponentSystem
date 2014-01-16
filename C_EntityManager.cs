@@ -10,12 +10,12 @@ namespace CSharpEntityComponentSystem
     {
         private UInt32 _lowestUnsignedID = 0;
         public Dictionary<UInt32, Dictionary<ComponentName, dynamic>> componentsOnEntities = new Dictionary<uint, Dictionary<ComponentName, dynamic>>();
-        private Dictionary<ComponentName, dynamic> _componentsByName = new Dictionary<ComponentName, dynamic>() {
-            {ComponentName.Health, new HealthComponent()},
-            {ComponentName.Coord, new CoordinateComponent()},
-            {ComponentName.ScreenRegion, new ScreenRegionComponent()},
-            {ComponentName.FlavorText, new FlavorTextComponent()}
-        };
+        //private Dictionary<ComponentName, dynamic> _componentsByName = new Dictionary<ComponentName, dynamic>() {
+        //    {ComponentName.Health, new HealthComponent()},
+        //    {ComponentName.Coord, new CoordinateComponent()},
+        //    {ComponentName.ScreenRegion, new ScreenRegionComponent()},
+        //    {ComponentName.FlavorText, new FlavorTextComponent()}
+        //};
 
         public UInt32 addNewEntity() {
             if (_lowestUnsignedID < UInt32.MaxValue) {
@@ -43,7 +43,20 @@ namespace CSharpEntityComponentSystem
         }
 
         public void addComponentToEntity(ComponentName componentname, UInt32 entity) {
-            componentsOnEntities[entity].Add(componentname, _componentsByName[componentname]);
+            switch (componentname) {
+                case ComponentName.Health:
+                    componentsOnEntities[entity].Add(componentname, new HealthComponent());
+                    break;
+                case ComponentName.Coord:
+                    componentsOnEntities[entity].Add(componentname, new CoordinateComponent());
+                    break;
+                case ComponentName.ScreenRegion:
+                    componentsOnEntities[entity].Add(componentname, new ScreenRegionComponent());
+                    break;
+                case ComponentName.FlavorText:
+                    componentsOnEntities[entity].Add(componentname, new FlavorTextComponent());
+                    break;
+            }
         }
 
         public void removeComponentFromEntity(ComponentName componentname, UInt32 entity) {

@@ -31,10 +31,9 @@ namespace CSharpEntityComponentSystem
             tile.foreColor = TCODColor.lightestGrey;
             tile.tileChar = ' ';
             Screen.fillScreenRegion(region, tile);
+            Screen.fillScreenRegion(otherregion, tile);
             while (!TCODConsole.isWindowClosed()) {
                 TCODConsole.root.clear();
-                TCODConsole.root.putChar(40, 25, '@');
-                TCODConsole.root.printFrame(0, 0, 10, 10, false);
                 Screen._renderScreenRegionsAsNeeded();
                 TCODConsole.flush();
                 TCODConsole.waitForKeypress(true);
