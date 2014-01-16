@@ -13,7 +13,8 @@ namespace CSharpEntityComponentSystem
         static private Dictionary<ComponentName, dynamic> _componentsByName = new Dictionary<ComponentName, dynamic>() {
             {ComponentName.Health, new HealthComponent()},
             {ComponentName.Coord, new CoordinateComponent()},
-            {ComponentName.ScreenRegion, new ScreenRegionComponent()}
+            {ComponentName.ScreenRegion, new ScreenRegionComponent()},
+            {ComponentName.FlavorText, new FlavorTextComponent()}
         };
 
         /// <summary>

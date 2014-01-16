@@ -18,6 +18,28 @@ namespace CSharpEntityComponentSystem
             TCODConsole.initRoot(screenwidth, screenheight, screentitle);
         }
 
+        static public int getRegionWidth (UInt32 entity) {
+            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].Width;
+        }
+        static public int getRegionHeight (UInt32 entity) {
+            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].Height;
+        }
+        static public int getRegionX (UInt32 entity) {
+            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].X;
+        }
+        static public int getRegionY (UInt32 entity) {
+            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].Y;
+        }
+        static public bool checkRegionBorder (UInt32 entity) {
+            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].Border;
+        }
+        static public bool checkRegionForUpdate (UInt32 entity) {
+            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].ToUpdate;
+        }
+        static public Tile getTileFromRegion (int x, int y, UInt32 entity) {
+            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].TileMap[x, y];
+        }
+
         /// <summary>
         /// Puts a character at a selected position with the selected color (TCODConsole.root.putCharEx wrapper)
         /// </summary>
@@ -37,6 +59,25 @@ namespace CSharpEntityComponentSystem
         /// <param name="tile">The character, foreground color, and background color</param>
         private void _setTile (int x, int y, Tile tile) {
             TCODConsole.root.putCharEx(x, y, tile.tileChar, tile.foreColor, tile.backColor);
+        }
+
+        private void _renderScreenRegionsAsNeeded () {
+            foreach (UInt32 entity in EntityManager.getEntitiesByComponent(ComponentName.ScreenRegion)) {
+                if (checkRegionBorder(entity)) {
+                    _renderScreenRegion(entity);
+                }
+            }
+        }
+
+        private void _renderScreenRegion (UInt32 entity) {
+            if (checkRegionBorder(entity)) {
+                TCODConsole.root.printFrame(getRegionX(entity), getRegionY(entity), getRegionWidth(entity), getRegionHeight(entity));
+            }
+            for (int y = getRegionY(entity) + (checkRegionBorder(entity) ? 1 : 0); y < getRegionHeight(entity) + getRegionY(entity) + (checkRegionBorder(entity) ? -1 : 0); y++) {
+                for (int x = getRegionX(entity) + (checkRegionBorder(entity) ? 1 : 0); x < getRegionWidth(entity) + getRegionX(entity) + (checkRegionBorder(entity) ? -1 : 0); x++) {
+                    _setTile(x, y, getTileFromRegion(x, y, entity));
+                }
+            }
         }
     }
 }

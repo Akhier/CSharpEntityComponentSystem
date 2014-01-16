@@ -9,6 +9,7 @@ namespace CSharpEntityComponentSystem
     public enum ComponentName {
         Health,
         Coord,
-        ScreenRegion
+        ScreenRegion,
+        FlavorText
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="AC_ECSystem.cs" />
     <Compile Include="C_CoordinateComponent.cs" />
     <Compile Include="C_EntityManager.cs" />
+    <Compile Include="C_FlavorTextComponent.cs" />
     <Compile Include="C_HealthComponent.cs" />
     <Compile Include="C_HealthSystem.cs" />
     <Compile Include="C_LibtcodRenderSystem.cs" />
