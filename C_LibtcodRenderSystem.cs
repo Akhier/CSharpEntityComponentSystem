@@ -29,5 +29,14 @@ namespace CSharpEntityComponentSystem
         private void _setTile (int x, int y, char tilechar, TCODColor foregroundcolor, TCODColor backgroundcolor) {
             TCODConsole.root.putCharEx(x, y, tilechar, foregroundcolor, backgroundcolor);
         }
+        /// <summary>
+        /// Puts a character at a selected position with the selected color (TCODConsole.root.putCharEx wrapper)
+        /// </summary>
+        /// <param name="x">X Coords</param>
+        /// <param name="y">Y Coords</param>
+        /// <param name="tile">The character, foreground color, and background color</param>
+        private void _setTile (int x, int y, Tile tile) {
+            TCODConsole.root.putCharEx(x, y, tile.tileChar, tile.foreColor, tile.backColor);
+        }
     }
 }

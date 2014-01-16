@@ -8,6 +8,7 @@ namespace CSharpEntityComponentSystem
 {
     public enum ComponentName {
         Health,
-        Coord
+        Coord,
+        ScreenRegion
     }
 }
