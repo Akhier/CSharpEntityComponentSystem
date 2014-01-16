@@ -8,36 +8,42 @@ using libtcod;
 namespace CSharpEntityComponentSystem
 {
     class LibtcodRenderSystem : ECSystem {
-        /// <summary>
-        /// Constructor Initiates the TCODConsole Root
-        /// </summary>
-        /// <param name="screenwidth">Width of the actual game window</param>
-        /// <param name="screenheight">Height of the actual game window</param>
-        /// <param name="screentitle">The title of the game window</param>
-        public LibtcodRenderSystem (int screenwidth, int screenheight, string screentitle) {
+        private EntityManager Manager;
+        public LibtcodRenderSystem (int screenwidth, int screenheight, string screentitle, EntityManager manager) {
             TCODConsole.initRoot(screenwidth, screenheight, screentitle);
+            Manager = manager;
         }
 
-        static public int getRegionWidth (UInt32 entity) {
-            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].Width;
+        public void setScreenRegion(UInt32 entity, int x, int y, int width, int height, bool border) {
+            Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].X = x;
+            Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].Y = y;
+            Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].Height = height;
+            Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].Width = width;
+            Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].tileMap = new Tile[width, height];
+            Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].Border = border;
+            Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].toUpdate = false;
         }
-        static public int getRegionHeight (UInt32 entity) {
-            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].Height;
+
+        public int getRegionWidth (UInt32 entity) {
+            return Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].Width;
         }
-        static public int getRegionX (UInt32 entity) {
-            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].X;
+        public int getRegionHeight (UInt32 entity) {
+            return Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].Height;
         }
-        static public int getRegionY (UInt32 entity) {
-            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].Y;
+        public int getRegionX (UInt32 entity) {
+            return Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].X;
         }
-        static public bool checkRegionBorder (UInt32 entity) {
-            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].Border;
+        public int getRegionY (UInt32 entity) {
+            return Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].Y;
         }
-        static public bool checkRegionForUpdate (UInt32 entity) {
-            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].ToUpdate;
+        public bool checkRegionBorder (UInt32 entity) {
+            return Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].Border;
         }
-        static public Tile getTileFromRegion (int x, int y, UInt32 entity) {
-            return EntityManager.componentsOnEntities[entity][ComponentName.ScreenRegion].TileMap[x, y];
+        public bool checkRegionForUpdate (UInt32 entity) {
+            return Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].toUpdate;
+        }
+        public Tile getTileFromRegion (int x, int y, UInt32 entity) {
+            return Manager.componentsOnEntities[entity][ComponentName.ScreenRegion].tileMap[x, y];
         }
 
         /// <summary>
@@ -61,21 +67,34 @@ namespace CSharpEntityComponentSystem
             TCODConsole.root.putCharEx(x, y, tile.tileChar, tile.foreColor, tile.backColor);
         }
 
-        private void _renderScreenRegionsAsNeeded () {
-            foreach (UInt32 entity in EntityManager.getEntitiesByComponent(ComponentName.ScreenRegion)) {
-                if (checkRegionBorder(entity)) {
+        public void _renderScreenRegionsAsNeeded () {
+            foreach (UInt32 entity in Manager.getEntitiesByComponent(ComponentName.ScreenRegion)) {
+                if (checkRegionForUpdate(entity)) {
                     _renderScreenRegion(entity);
                 }
             }
         }
 
         private void _renderScreenRegion (UInt32 entity) {
-            if (checkRegionBorder(entity)) {
-                TCODConsole.root.printFrame(getRegionX(entity), getRegionY(entity), getRegionWidth(entity), getRegionHeight(entity));
+            bool border = checkRegionBorder(entity);
+            if (border) {
+                TCODConsole.root.printFrame(getRegionX(entity), getRegionY(entity), getRegionWidth(entity), getRegionHeight(entity),false);
             }
-            for (int y = getRegionY(entity) + (checkRegionBorder(entity) ? 1 : 0); y < getRegionHeight(entity) + getRegionY(entity) + (checkRegionBorder(entity) ? -1 : 0); y++) {
-                for (int x = getRegionX(entity) + (checkRegionBorder(entity) ? 1 : 0); x < getRegionWidth(entity) + getRegionX(entity) + (checkRegionBorder(entity) ? -1 : 0); x++) {
-                    _setTile(x, y, getTileFromRegion(x, y, entity));
+            for (int y = (border ? 1 : 0); y < getRegionHeight(entity) + (border ? -1 : 0); y++) {
+                for (int x = (border ? 1 : 0); x < getRegionWidth(entity) + (border ? -1 : 0); x++) {
+                    _setTile(x + getRegionX(entity), y + getRegionY(entity), getTileFromRegion(x, y, entity));
+                }
+            }
+        }
+
+        private void _setTileInScreenRegion (UInt32 screenregionentity, int x, int y, Tile tile) {
+            Manager.componentsOnEntities[screenregionentity][ComponentName.ScreenRegion].tileMap[x, y] = tile;
+        }
+        
+        public void fillScreenRegion (UInt32 screenregionentity, Tile tile) {
+            for (int y = 0; y < getRegionHeight(screenregionentity); y++) {
+                for (int x = 0; x < getRegionWidth(screenregionentity); x++) {
+                    _setTileInScreenRegion(screenregionentity, x, y, tile);
                 }
             }
         }
