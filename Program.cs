@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using libtcod;
 
-namespace EntityComponentSystemTest
+namespace CSharpEntityComponentSystem
 {
     class Program
     {
