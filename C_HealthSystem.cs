@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CSharpEntityComponentSystem
 {
     class HealthSystem : ECSystem {
-/// <summary>
+        /// <summary>
         /// Sets the selected entity's HP to a new value
         /// </summary>
         /// <param name="entity">The UInt32 ID of entity to affect</param>

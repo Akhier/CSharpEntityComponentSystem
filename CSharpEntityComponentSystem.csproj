@@ -54,6 +54,7 @@
     <Compile Include="C_EntityManager.cs" />
     <Compile Include="C_HealthComponent.cs" />
     <Compile Include="C_HealthSystem.cs" />
+    <Compile Include="C_LibtcodRenderSystem.cs" />
     <Compile Include="E_ComponentName.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

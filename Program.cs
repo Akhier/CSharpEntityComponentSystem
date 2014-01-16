@@ -11,11 +11,11 @@ namespace CSharpEntityComponentSystem
     {
         static void Main(string[] args)
         {
+            LibtcodRenderSystem Screen = new LibtcodRenderSystem(80, 50, "test");
             UInt32 player = EntityManager.addNewEntity();
             EntityManager.addComponentToEntity(ComponentName.Health, player);
             HealthSystem.setHP(player, 12);
             HealthSystem.checkDeaths();
-            TCODConsole.initRoot(80, 50, "test");
             while (!TCODConsole.isWindowClosed()) {
                 TCODConsole.root.clear();
                 TCODConsole.root.putChar(40, 25, '@');
