@@ -11,15 +11,18 @@ namespace CSharpEntityComponentSystem
             return ComponentName.ScreenRegion;
         }
 
-        public ScreenRegionComponent (int x, int y, int width, int height) {
+        public ScreenRegionComponent (int x, int y, int width, int height, bool border) {
             X = x;
             Y = y;
             Height = height;
             Width = width;
             tileMap = new Tile[width, height];
+            Border = border;
+            toUpdate = false;
         }
 
         public int Height, Width, X, Y;
         public Tile[,] tileMap;
+        public bool Border, toUpdate;
     }
 }
