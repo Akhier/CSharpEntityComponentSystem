@@ -18,12 +18,12 @@ namespace CSharpEntityComponentSystem
             Manager.addComponentToEntity(ComponentName.Health, player);
             Health.setHP(player, 12);
             Health.checkDeaths();
-            while (!TCODConsole.isWindowClosed()) {
+            do {
                 Screen._renderScreenRegionsAsNeeded();
                 Screen.makeNewMap();
                 TCODConsole.flush();
                 TCODConsole.waitForKeypress(true);
-            }
+            } while (!TCODConsole.isWindowClosed()) ;
         }
     }
 }
