@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using libtcod;
+using CSharpSimpleMapGen;
 
 namespace CSharpEntityComponentSystem
 {
@@ -42,6 +43,12 @@ namespace CSharpEntityComponentSystem
                 _setTileInScreenRegion(MainViews[2], 5, i, ':', TCODColor.lightestGrey, TCODColor.darkestGrey);
                 _setTileInScreenRegion(MainViews[2], 6, i, '0', TCODColor.lightestGrey, TCODColor.darkestGrey);
                 _setTileInScreenRegion(MainViews[2], 7, i, '3', TCODColor.lightestGrey, TCODColor.darkestGrey);
+            }
+            int[,] map = MapGen.newMap(getRegionWidth(MainViews[0]),getRegionHeight(MainViews[0]));
+            for (int y = 0; y < getRegionHeight(MainViews[0]); y++) {
+                for (int x = 0; x < getRegionWidth(MainViews[0]); x++) {
+                    _setTileInScreenRegion(MainViews[0], x, y, (map[x, y] == 1) ? '#' : '.', tile.foreColor, tile.backColor);
+                }
             }
         }
 
