@@ -44,10 +44,14 @@ namespace CSharpEntityComponentSystem
                 _setTileInScreenRegion(MainViews[2], 6, i, '0', TCODColor.lightestGrey, TCODColor.darkestGrey);
                 _setTileInScreenRegion(MainViews[2], 7, i, '3', TCODColor.lightestGrey, TCODColor.darkestGrey);
             }
-            int[,] map = MapGen.newMap(getRegionWidth(MainViews[0]),getRegionHeight(MainViews[0]));
-            for (int y = 0; y < getRegionHeight(MainViews[0]); y++) {
+            makeNewMap();
+        }
+
+        public void makeNewMap() {
+            int[,] map = MapGen.newMap(getRegionWidth(MainViews[0]), getRegionHeight(MainViews[0]));
+            for (int y = 0; y < getRegionHeight(MainViews[0]); y++){
                 for (int x = 0; x < getRegionWidth(MainViews[0]); x++) {
-                    _setTileInScreenRegion(MainViews[0], x, y, (map[x, y] == 1) ? '#' : '.', tile.foreColor, tile.backColor);
+                    _setTileInScreenRegion(MainViews[0], x, y, (map[x, y] == 1) ? '#' : '.', TCODColor.lightestGrey, TCODColor.darkestGrey);
                 }
             }
         }
@@ -117,6 +121,7 @@ namespace CSharpEntityComponentSystem
 
         private void _setTileInScreenRegion (UInt32 screenregionentity, int x, int y, Tile tile) {
             Manager.componentsOnEntities[screenregionentity][ComponentName.ScreenRegion].tileMap[x, y] = tile;
+            setRegionUpdate(screenregionentity, true);
         }
 
         private void _setTileInScreenRegion (UInt32 screenregionentity, int x, int y, char tilechar, TCODColor forecolor, TCODColor backcolor) {
@@ -125,6 +130,7 @@ namespace CSharpEntityComponentSystem
             tile.foreColor = forecolor;
             tile.backColor = backcolor;
             Manager.componentsOnEntities[screenregionentity][ComponentName.ScreenRegion].tileMap[x, y] = tile;
+            setRegionUpdate(screenregionentity, true);
         }
         
         public void fillScreenRegion (UInt32 screenregionentity, Tile tile) {
@@ -133,6 +139,7 @@ namespace CSharpEntityComponentSystem
                     _setTileInScreenRegion(screenregionentity, x, y, tile);
                 }
             }
+            setRegionUpdate(screenregionentity, true);
         }
     }
 }

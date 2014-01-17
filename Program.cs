@@ -19,8 +19,8 @@ namespace CSharpEntityComponentSystem
             Health.setHP(player, 12);
             Health.checkDeaths();
             while (!TCODConsole.isWindowClosed()) {
-                TCODConsole.root.clear();
                 Screen._renderScreenRegionsAsNeeded();
+                Screen.makeNewMap();
                 TCODConsole.flush();
                 TCODConsole.waitForKeypress(true);
             }
