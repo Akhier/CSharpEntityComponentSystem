@@ -50,6 +50,9 @@ namespace CSharpEntityComponentSystem
                 case ComponentName.FlavorText:
                     componentsOnEntities[entity].Add(componentname, new FlavorTextComponent());
                     break;
+                case ComponentName.Map:
+                    componentsOnEntities[entity].Add(componentname, new MapComponent());
+                    break;
             }
         }
 

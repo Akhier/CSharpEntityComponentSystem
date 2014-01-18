@@ -4,6 +4,7 @@
         Health,
         Coord,
         ScreenRegion,
-        FlavorText
+        FlavorText,
+        Map
     }
 }

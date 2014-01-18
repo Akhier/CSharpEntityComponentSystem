@@ -60,7 +60,10 @@
     <Compile Include="C_HealthComponent.cs" />
     <Compile Include="C_HealthSystem.cs" />
     <Compile Include="C_LibtcodRenderSystem.cs" />
+    <Compile Include="C_MapComponent.cs" />
+    <Compile Include="C_MapSystem.cs" />
     <Compile Include="C_ScreenRegionComponent.cs" />
+    <Compile Include="C_TileDictonary.cs" />
     <Compile Include="E_ComponentName.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

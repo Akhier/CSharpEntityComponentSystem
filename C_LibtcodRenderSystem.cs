@@ -28,6 +28,7 @@ namespace CSharpEntityComponentSystem
             tile.backColor = TCODColor.darkestGrey;
             tile.foreColor = TCODColor.lightestGrey;
             tile.tileChar = '.';
+            tile.Description = ""; tile.Name = ""; tile.Walkable = false; tile.Seethrough = false;
             fillScreenRegion(MainViews[0], tile);
             tile.tileChar = ' ';
             fillScreenRegion(MainViews[1], tile);
@@ -44,14 +45,12 @@ namespace CSharpEntityComponentSystem
                 _setTileInScreenRegion(MainViews[2], 6, i, '0', TCODColor.lightestGrey, TCODColor.darkestGrey);
                 _setTileInScreenRegion(MainViews[2], 7, i, '3', TCODColor.lightestGrey, TCODColor.darkestGrey);
             }
-            makeNewMap();
         }
 
-        public void makeNewMap() {
-            int[,] map = MapGen.newMap(getRegionWidth(MainViews[0]), getRegionHeight(MainViews[0]));
+        public void setNewMap(UInt32 mapid) {
             for (int y = 0; y < getRegionHeight(MainViews[0]); y++){
                 for (int x = 0; x < getRegionWidth(MainViews[0]); x++) {
-                    _setTileInScreenRegion(MainViews[0], x, y, (map[x, y] == 1) ? '#' : '.', TCODColor.lightestGrey, TCODColor.darkestGrey);
+                    _setTileInScreenRegion(MainViews[0], x, y, Manager.componentsOnEntities[mapid][ComponentName.Map][x,y].tileChar, TCODColor.lightestGrey, TCODColor.darkestGrey);
                 }
             }
         }
@@ -129,6 +128,7 @@ namespace CSharpEntityComponentSystem
             tile.tileChar = tilechar;
             tile.foreColor = forecolor;
             tile.backColor = backcolor;
+            tile.Description = ""; tile.Name = ""; tile.Walkable = false; tile.Seethrough = false;
             Manager.componentsOnEntities[screenregionentity][ComponentName.ScreenRegion].tileMap[x, y] = tile;
             setRegionUpdate(screenregionentity, true);
         }
