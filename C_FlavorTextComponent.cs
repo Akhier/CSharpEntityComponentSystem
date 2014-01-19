@@ -10,6 +10,6 @@ namespace CSharpEntityComponentSystem
         public override ComponentName getComponentName() {
             return ComponentName.Flavor;
         }
-        public string Name, FlavorText;
+        public string Name, Description;
     }
 }
