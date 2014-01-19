@@ -9,9 +9,6 @@ namespace CSharpEntityComponentSystem
     static class EntityManager {
         static private UInt32 _lowestUnsignedID = 0;
         static public Dictionary<UInt32, Dictionary<ComponentName, dynamic>> componentsOnEntities = new Dictionary<uint, Dictionary<ComponentName, dynamic>>();
-        static private Dictionary<ComponentName, dynamic> _componentsByName = new Dictionary<ComponentName, dynamic>() {
-            {ComponentName.Health, new HealthComponent()}
-        };
 
         static public UInt32 addNewEntity() {
             if (_lowestUnsignedID < UInt32.MaxValue) {
@@ -39,7 +36,20 @@ namespace CSharpEntityComponentSystem
         }
 
         static public void addComponentToEntity(ComponentName componentname, UInt32 entity) {
-            componentsOnEntities[entity].Add(componentname, _componentsByName[ComponentName.Health]);
+            switch (componentname) {
+                case ComponentName.Health:
+                    componentsOnEntities[entity].Add(componentname, new HealthComponent());
+                    break;
+                case ComponentName.Coord:
+                    componentsOnEntities[entity].Add(componentname, new CoordinateComponent());
+                    break;
+                case ComponentName.Display:
+                    componentsOnEntities[entity].Add(componentname, new DisplayComponent());
+                    break;
+                case ComponentName.Flavor:
+                    componentsOnEntities[entity].Add(componentname, new FlavorTextComponent());
+                    break;
+            }
         }
 
         static public void removeComponentFromEntity(ComponentName componentname, UInt32 entity) {

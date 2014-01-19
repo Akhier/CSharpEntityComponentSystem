@@ -36,6 +36,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\CSharpSimpleMapGen.dll</HintPath>
     </Reference>
+    <Reference Include="libtcod-net, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\libtcod-net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,11 +51,13 @@
   <ItemGroup>
     <Compile Include="AC_Component.cs" />
     <Compile Include="C_CoordinateComponent.cs" />
+    <Compile Include="C_DisplayComponent.cs" />
     <Compile Include="C_EntityManager.cs" />
     <Compile Include="C_HealthComponent.cs" />
     <Compile Include="C_HealthSystem.cs" />
     <Compile Include="C_MapSystem.cs" />
     <Compile Include="E_ComponentName.cs" />
+    <Compile Include="E_DisplayLevel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

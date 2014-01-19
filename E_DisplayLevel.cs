@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace CSharpEntityComponentSystem
 {
-    public enum ComponentName {
-        Health,
-        Coord,
-        Display,
-        Flavor
+    enum DisplayLevel {
+        Tile,
+        Feature,
+        Item,
+        Creature
     }
 }
