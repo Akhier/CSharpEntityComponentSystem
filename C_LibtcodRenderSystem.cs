@@ -7,7 +7,7 @@ using libtcod;
 
 namespace CSharpEntityComponentSystem
 {
-    class LibtcodRenderSystem {
+    public class LibtcodRenderSystem {
         static private int Width, Height;
         public LibtcodRenderSystem(int width, int height, string title) {
             TCODConsole.initRoot(width, height, title);
@@ -22,9 +22,11 @@ namespace CSharpEntityComponentSystem
         static public void drawMap() {
             for (int y = 0; y < Height; y++) {
                 for (int x = 0; x < Width; x++) {
-                    
+                    TCODConsole.root.putChar(x, y, MapSystem.Tile[x, y] ? '.' : '#');
                 }
             }
+            TCODConsole.root.putChar(MapSystem.Entrance.X, MapSystem.Entrance.Y, '<');
+            TCODConsole.root.putChar(MapSystem.Exit.X, MapSystem.Exit.Y, '>');
         }
     }
 }

@@ -12,7 +12,7 @@ namespace CSharpEntityComponentSystem
         static public bool[,] Tile;
         static private int Width, Height;
         static private int PreviousDownLocation = 7;   //The direction is where the number resides on the numpad so 7 is north west
-        static private CoordinateComponent Entrance, Exit;
+        static public CoordinateComponent Entrance, Exit;
         public MapSystem(int width, int height){
             Width = width;
             Height = height;
@@ -122,6 +122,22 @@ namespace CSharpEntityComponentSystem
             else {
                 Exit.X = X + 1;
                 Exit.Y = Y + 1;
+            }
+            if (Y <= Height / 2) {
+                if (X <= Width / 2) {
+                    PreviousDownLocation = 7;
+                }
+                else {
+                    PreviousDownLocation = 9;
+                }
+            }
+            else {
+                if (X <= Width / 2) {
+                    PreviousDownLocation = 1;
+                }
+                else {
+                    PreviousDownLocation = 3;
+                }
             }
         }
 
