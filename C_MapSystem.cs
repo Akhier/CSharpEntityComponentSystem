@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSharpSimpleMapGen;
+using CSharpFloodFill;
 
 namespace CSharpEntityComponentSystem
 {
@@ -20,7 +21,7 @@ namespace CSharpEntityComponentSystem
             EntityManager.addComponentToEntity(ComponentName.Display, temp);
             EntityManager.addComponentToEntity(ComponentName.Flavor, temp);
             EntityManager.componentsOnEntities[temp][ComponentName.Display].DisplayIcon = '>';
-            EntityManager.componentsOnEntities[temp][ComponentName.Display].displaylevel = DisplayLevel.Tile;
+            EntityManager.componentsOnEntities[temp][ComponentName.Display].displaylevel = DisplayLevel.Feature;
             EntityManager.componentsOnEntities[temp][ComponentName.Display].Render = true;
             EntityManager.componentsOnEntities[temp][ComponentName.Flavor].Name = "Downward Staircase";
             EntityManager.componentsOnEntities[temp][ComponentName.Flavor].Description = "This Staircase will lead you deeper into this place. Do you dare to continue?";
@@ -30,7 +31,7 @@ namespace CSharpEntityComponentSystem
             EntityManager.addComponentToEntity(ComponentName.Display, temp);
             EntityManager.addComponentToEntity(ComponentName.Flavor, temp);
             EntityManager.componentsOnEntities[temp][ComponentName.Display].DisplayIcon = '<';
-            EntityManager.componentsOnEntities[temp][ComponentName.Display].displaylevel = DisplayLevel.Tile;
+            EntityManager.componentsOnEntities[temp][ComponentName.Display].displaylevel = DisplayLevel.Feature;
             EntityManager.componentsOnEntities[temp][ComponentName.Display].Render = true;
             EntityManager.componentsOnEntities[temp][ComponentName.Flavor].Name = "Upward Staircase";
             EntityManager.componentsOnEntities[temp][ComponentName.Flavor].Description = "This Staircase will lead you upwards to where you have already been, or rather it would if a block of stone hadn't slammed into place as soon as you stepped off the staircase. Apperently retreating isn't an option here so you better go forward to live or die with honor(no matter how forced upon you).";
@@ -46,7 +47,7 @@ namespace CSharpEntityComponentSystem
                     case 7:
                         X = 1;
                         Y = 1;
-                        while (!checkstart(X, Y)) {
+                        while (!checkposition(X, Y)) {
                             X++;
                             Y++;
                             if ((X >= Width) || (Y >= Height)) {
@@ -58,7 +59,7 @@ namespace CSharpEntityComponentSystem
                     case 9:
                         X = Width - 1;
                         Y = 1;
-                        while (!checkstart(X, Y)) {
+                        while (!checkposition(X, Y)) {
                             X--;
                             Y++;
                             if ((X < 1) || (Y >= Height)) {
@@ -70,7 +71,7 @@ namespace CSharpEntityComponentSystem
                     case 3:
                         X = Width - 1;
                         Y = Height - 1;
-                        while (!checkstart(X, Y)) {
+                        while (!checkposition(X, Y)) {
                             X--;
                             Y--;
                             if ((X < 1) || (Y < 1)) {
@@ -82,7 +83,7 @@ namespace CSharpEntityComponentSystem
                     case 1:
                         X = 1;
                         Y = Height - 1;
-                        while (!checkstart(X, Y)) {
+                        while (!checkposition(X, Y)) {
                             X++;
                             Y--;
                             if ((X >= Width) || (Y < 1)) {
@@ -92,11 +93,39 @@ namespace CSharpEntityComponentSystem
                         }
                         break;
                 } 
-            } while(checkstart(X,Y));
-
+            } while(!checkposition(X,Y));
+            Entrance.X = X;
+            Entrance.Y = Y;
+            bool[,] boolmap = new bool[Width, Height];
+            for (int y = 0; y < Height; y++) {
+                for (int x = 0; x < Width; x++) {
+                    boolmap[x, y] = Tile[x, y];
+                }
+            }
+            int[,] findingexit = FloodFill.Run(X, Y, boolmap);
+            int highval = 0;
+            for (int y = 0; y < Height; y++) {
+                for (int x = 0; x < Width; x++) {
+                    if (highval < findingexit[x, y]) {
+                        if (checkposition(x, y)) {
+                            X = x;
+                            Y = y;
+                            highval = findingexit[x, y];
+                        }
+                    }
+                }
+            }
+            if ((Entrance.X != X) && (Entrance.Y != Y)) {
+                Exit.X = X;
+                Exit.Y = Y;
+            }
+            else {
+                Exit.X = X + 1;
+                Exit.Y = Y + 1;
+            }
         }
 
-        static private bool checkstart(int x,int y){
+        static private bool checkposition(int x,int y){
             if (Tile[x - 1, y - 1] && Tile[x - 1, y] && Tile[x - 1, y + 1] && Tile[x, y - 1] && Tile[x, y] && Tile[x, y + 1] && Tile[x + 1, y - 1] && Tile[x + 1, y] && Tile[x + 1, y + 1]) {
                 return true;
             }

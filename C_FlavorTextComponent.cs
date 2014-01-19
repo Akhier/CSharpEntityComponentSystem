@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSharpEntityComponentSystem
 {
-    class FlavorTextComponent {
+    class FlavorTextComponent : Component {
         public override ComponentName getComponentName() {
             return ComponentName.Flavor;
         }
