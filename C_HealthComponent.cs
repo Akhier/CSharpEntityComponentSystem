@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityComponentSystemTest
+namespace CSharpEntityComponentSystem
 {
     public class HealthComponent : Component {
         public override ComponentName getComponentName() {
