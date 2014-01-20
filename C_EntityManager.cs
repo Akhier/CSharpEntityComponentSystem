@@ -49,6 +49,9 @@ namespace CSharpEntityComponentSystem
                 case ComponentName.Flavor:
                     componentsOnEntities[entity].Add(componentname, new FlavorTextComponent());
                     break;
+                case ComponentName.Control:
+                    componentsOnEntities[entity].Add(componentname, new ControlComponent());
+                    break;
             }
         }
 

@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace CSharpEntityComponentSystem
 {
-    public enum ComponentName {
-        Health,
-        Coord,
-        Display,
-        Flavor,
-        Control
+    class ControlComponent : Component {
+        public override ComponentName getComponentName() {
+            return ComponentName.Control;
+        }
     }
 }
