@@ -50,7 +50,7 @@ namespace CSharpEntityComponentSystem
                     componentsOnEntities[entity].Add(componentname, new FlavorTextComponent());
                     break;
                 case ComponentName.Control:
-                    componentsOnEntities[entity].Add(componentname, new ControlComponent());
+                    componentsOnEntities[entity].Add(componentname, new PlayerControlComponent());
                     break;
             }
         }
