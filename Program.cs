@@ -13,7 +13,6 @@ namespace CSharpEntityComponentSystem
             UInt32 player = EntityManager.addNewEntity();
             EntityManager.addComponentToEntity(ComponentName.Health, player);
             HealthSystem.setHP(player, 12);
-            Console.Write(HealthSystem.getHP(player));
             HealthSystem.checkDeaths();
             MapSystem map = new MapSystem(80, 50);
             LibtcodRenderSystem render = new LibtcodRenderSystem(80, 50, "testing colors");
