@@ -35,6 +35,12 @@ namespace CSharpEntityComponentSystem
             return tempEntitiesList;
         }
 
+        static public List<UInt32> getEntitiesInBothComponents(ComponentName component1, ComponentName component2) {
+            List<UInt32> Component1 = getEntitiesByComponent(component1);
+            List<UInt32> Component2 = getEntitiesByComponent(component2);
+            return Component1.Intersect(Component2).ToList<UInt32>();
+        }
+
         static public List<T> getListOfAComponent<T>(ComponentName componentname) {
             List<T> tempComponentList = new List<T>();
             foreach (UInt32 entity in componentsOnEntities.Keys) {
@@ -90,6 +96,12 @@ namespace CSharpEntityComponentSystem
             display.DisplayIcon = displayicon;
             display.Render = render;
             display.displaylevel = displaylevel;
+        }
+
+        static public void addAndSetHealthComponent(int hp, int maxhp, UInt32 entity) {
+            addComponentToEntity(ComponentName.Health, entity);
+            componentsOnEntities[entity][ComponentName.Health].HP = hp;
+            componentsOnEntities[entity][ComponentName.Health].maxHP = maxhp;
         }
     }
 }
