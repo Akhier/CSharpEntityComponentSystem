@@ -35,8 +35,8 @@ namespace CSharpEntityComponentSystem
             return tempEntitiesList;
         }
 
-        static public List<dynamic> getListOfAComponent(ComponentName componentname) {
-            List<dynamic> tempComponentList = new List<dynamic>();
+        static public List<T> getListOfAComponent<T>(ComponentName componentname) {
+            List<T> tempComponentList = new List<T>();
             foreach (UInt32 entity in componentsOnEntities.Keys) {
                 if (componentsOnEntities[entity].ContainsKey(componentname)) {
                     tempComponentList.Add(componentsOnEntities[entity][componentname]);

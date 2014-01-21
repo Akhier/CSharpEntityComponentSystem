@@ -7,7 +7,7 @@ using libtcod;
 
 namespace CSharpEntityComponentSystem
 {
-    public class PlayerLibtcodInputSystem {
+    static public class PlayerLibtcodInputSystem {
         static public PlayerLibtcodInputSystem() {
             TCODKey pressedkey = TCODConsole.waitForKeypress(true);
             switch (pressedkey.KeyCode) {
@@ -22,8 +22,12 @@ namespace CSharpEntityComponentSystem
 
         static void moveNorth() {
             List<UInt32> playerEntities = EntityManager.getEntitiesByComponent(ComponentName.Player);
+            List<CoordinateComponent> coordList = EntityManager.getListOfAComponent<CoordinateComponent>(ComponentName.Coord);
             foreach (UInt32 entity in playerEntities) {
-                if (MapSystem.checkTile(EntityManager.componentsOnEntities[entity][ComponentName.Coord].X, EntityManager.componentsOnEntities[entity][ComponentName.Coord].Y)) {
+                dynamic playerCoord = new CoordinateComponent();
+                playerCoord.X = EntityManager.componentsOnEntities[entity][ComponentName.Coord].X;
+                playerCoord.Y = EntityManager.componentsOnEntities[entity][ComponentName.Coord].Y-1;
+                if ((MapSystem.checkTile(playerCoord.X,playerCoord.Y))&&(!(coordList.Exists(playerCoord)))) {
 
                 }
             }
