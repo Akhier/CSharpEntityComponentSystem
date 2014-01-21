@@ -71,6 +71,7 @@
     <Compile Include="C_MapSystem.cs" />
     <Compile Include="C_PlayerControlComponent.cs" />
     <Compile Include="C_PlayerLibtcodInputSystem.cs" />
+    <Compile Include="E_CardinalDirection.cs" />
     <Compile Include="E_ComponentName.cs" />
     <Compile Include="E_DisplayLevel.cs" />
     <Compile Include="Program.cs" />

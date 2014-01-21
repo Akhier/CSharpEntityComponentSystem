@@ -10,6 +10,10 @@ namespace CSharpEntityComponentSystem
         North,
         East,
         South,
-        West
+        West,
+        NorthEast,
+        NorthWest,
+        SouthEast,
+        SouthWest
     }
 }
