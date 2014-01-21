@@ -20,9 +20,9 @@ namespace CSharpEntityComponentSystem
             EntityManager.addAndSetDisplayComponent('@', true, DisplayLevel.Creature, player);
             LibtcodRenderSystem.drawMap();
             TCODConsole.flush();
-            while (TCODConsole.waitForKeypress(true).KeyCode != TCODKeyCode.Escape) {
+            while (!TCODConsole.isWindowClosed()) {//(TCODConsole.waitForKeypress(true).KeyCode != TCODKeyCode.Escape) {
                 //MapSystem.newmap();
-                //PlayerLibtcodInputSystem.checkInput();
+                PlayerLibtcodInputSystem.checkInput();
                 MapSystem.entityMapUpdate();
                 LibtcodRenderSystem.drawMap();
                 TCODConsole.flush();

@@ -43,7 +43,7 @@ namespace CSharpEntityComponentSystem
                     entitywithboth.Remove(entity);
                 }
                 else {
-                    entitywithboth.Add(entity);
+                    entitywithboth3.Add(entity);
                 }
             }
             

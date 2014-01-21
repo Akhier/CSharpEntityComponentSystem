@@ -76,7 +76,7 @@ namespace CSharpEntityComponentSystem
                     playerCoord.X++;
                 }
                 if (MapSystem.checkTile(playerCoord.X,playerCoord.Y) && MapSystem.entityMap[playerCoord.X,playerCoord.Y]) {
-                    EntityManager.componentsOnEntities[entity][ComponentName.Coord] = playerCoord;
+                    //EntityManager.componentsOnEntities[entity][ComponentName.Coord] = playerCoord;
                 }
                 else {
                     if ((dir == CardinalDirection.North) || (dir == CardinalDirection.NorthEast) || (dir == CardinalDirection.NorthWest)) {
