@@ -8,7 +8,6 @@ namespace CSharpEntityComponentSystem
 {
     enum DisplayLevel {
         Tile,
-        Feature,
         Item,
         Creature
     }

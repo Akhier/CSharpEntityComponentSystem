@@ -39,7 +39,7 @@ namespace CSharpEntityComponentSystem
             entitywithboth = new List<UInt32>();
 
             foreach (UInt32 entity in entitywithboth2) {
-                if (EntityManager.componentsOnEntities[entity][ComponentName.Display].Render && (EntityManager.componentsOnEntities[entity][ComponentName.Display].displaylevel == DisplayLevel.Feature)) {
+                if (EntityManager.componentsOnEntities[entity][ComponentName.Display].Render && (EntityManager.componentsOnEntities[entity][ComponentName.Display].displaylevel == DisplayLevel.Item)) {
                     TCODConsole.root.putChar(EntityManager.componentsOnEntities[entity][ComponentName.Coord].X, EntityManager.componentsOnEntities[entity][ComponentName.Coord].Y, EntityManager.componentsOnEntities[entity][ComponentName.Display].DisplayIcon);
                     entitywithboth.Remove(entity);
                 }
@@ -47,22 +47,11 @@ namespace CSharpEntityComponentSystem
                     entitywithboth.Add(entity);
                 }
             }
-
-            entitywithboth2 = new List<UInt32>();
             
             foreach (UInt32 entity in entitywithboth) {
-                if (EntityManager.componentsOnEntities[entity][ComponentName.Display].Render && (EntityManager.componentsOnEntities[entity][ComponentName.Display].displaylevel == DisplayLevel.Item)) {
-                    TCODConsole.root.putChar(EntityManager.componentsOnEntities[entity][ComponentName.Coord].X, EntityManager.componentsOnEntities[entity][ComponentName.Coord].Y, EntityManager.componentsOnEntities[entity][ComponentName.Display].DisplayIcon);
-                    entitywithboth.Remove(entity);
-                }
-                else {
-                    entitywithboth2.Add(entity);
-                }
-            }
-
-            foreach (UInt32 entity in entitywithboth2) {
                 if (EntityManager.componentsOnEntities[entity][ComponentName.Display].Render && (EntityManager.componentsOnEntities[entity][ComponentName.Display].displaylevel == DisplayLevel.Creature)) {
                     TCODConsole.root.putChar(EntityManager.componentsOnEntities[entity][ComponentName.Coord].X, EntityManager.componentsOnEntities[entity][ComponentName.Coord].Y, EntityManager.componentsOnEntities[entity][ComponentName.Display].DisplayIcon);
+                    entitywithboth.Remove(entity);
                 }
             }
         }

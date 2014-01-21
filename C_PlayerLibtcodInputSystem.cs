@@ -30,7 +30,7 @@ namespace CSharpEntityComponentSystem
             foreach (UInt32 entity in playerEntities) {
                 CoordinateComponent playerCoord = EntityManager.componentsOnEntities[entity][ComponentName.Coord];
                 playerCoord.Y--;
-                if (MapSystem.checkTile(playerCoord.X,playerCoord.Y)) {
+                if (MapSystem.checkTile(playerCoord.X,playerCoord.Y) && MapSystem.entityMap[playerCoord.X,playerCoord.Y]) {
                     EntityManager.componentsOnEntities[entity][ComponentName.Coord] = playerCoord;
                 }
                 else {

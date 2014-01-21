@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using CSharpSimpleMapGen;
 using CSharpFloodFill;
+using CSharpHelperCode;
 
 namespace CSharpEntityComponentSystem
 {
     public class MapSystem {
-        static public bool[,] Tile;
+        static public bool[,] Tile, entityMap;
         static private int Width, Height;
         static private int PreviousDownLocation = 7;   //The direction is where the number resides on the numpad so 7 is north west
         static public CoordinateComponent Entrance, Exit;
@@ -21,7 +22,7 @@ namespace CSharpEntityComponentSystem
             EntityManager.addComponentToEntity(ComponentName.Display, temp);
             EntityManager.addComponentToEntity(ComponentName.Flavor, temp);
             EntityManager.componentsOnEntities[temp][ComponentName.Display].DisplayIcon = '>';
-            EntityManager.componentsOnEntities[temp][ComponentName.Display].displaylevel = DisplayLevel.Feature;
+            EntityManager.componentsOnEntities[temp][ComponentName.Display].displaylevel = DisplayLevel.Tile;
             EntityManager.componentsOnEntities[temp][ComponentName.Display].Render = true;
             EntityManager.componentsOnEntities[temp][ComponentName.Flavor].Name = "Downward Staircase";
             EntityManager.componentsOnEntities[temp][ComponentName.Flavor].Description = "This Staircase will lead you deeper into this place. Do you dare to continue?";
@@ -31,7 +32,7 @@ namespace CSharpEntityComponentSystem
             EntityManager.addComponentToEntity(ComponentName.Display, temp);
             EntityManager.addComponentToEntity(ComponentName.Flavor, temp);
             EntityManager.componentsOnEntities[temp][ComponentName.Display].DisplayIcon = '<';
-            EntityManager.componentsOnEntities[temp][ComponentName.Display].displaylevel = DisplayLevel.Feature;
+            EntityManager.componentsOnEntities[temp][ComponentName.Display].displaylevel = DisplayLevel.Tile;
             EntityManager.componentsOnEntities[temp][ComponentName.Display].Render = true;
             EntityManager.componentsOnEntities[temp][ComponentName.Flavor].Name = "Upward Staircase";
             EntityManager.componentsOnEntities[temp][ComponentName.Flavor].Description = "This Staircase will lead you upwards to where you have already been, or rather it would if a block of stone hadn't slammed into place as soon as you stepped off the staircase. Apperently retreating isn't an option here so you better go forward to live or die with honor(no matter how forced upon you).";
@@ -152,6 +153,16 @@ namespace CSharpEntityComponentSystem
 
         static public bool checkTile(int x, int y) {
             return Tile[x, y];
+        }
+
+        static public void entityMapUpdate() {
+            List<UInt32> entitywithboth = EntityManager.getEntitiesInBothComponents(ComponentName.Coord, ComponentName.Display);
+            entityMap = Helper.init2dArrayToValue<bool>(true, Width, Height);
+            foreach (UInt32 entity in entitywithboth) {
+                if (EntityManager.componentsOnEntities[entity][ComponentName.Display].displaylevel == DisplayLevel.Creature) {
+                    entityMap[EntityManager.componentsOnEntities[entity][ComponentName.Coord].X, EntityManager.componentsOnEntities[entity][ComponentName.Coord].Y] = false;
+                }
+            }
         }
     }
 }

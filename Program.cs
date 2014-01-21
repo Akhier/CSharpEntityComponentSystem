@@ -23,6 +23,7 @@ namespace CSharpEntityComponentSystem
             while (!TCODConsole.isWindowClosed()) {//(TCODConsole.waitForKeypress(true).KeyCode != TCODKeyCode.Escape) {
                 //MapSystem.newmap();
                 PlayerLibtcodInputSystem.checkInput();
+                MapSystem.entityMapUpdate();
                 LibtcodRenderSystem.drawMap();
                 TCODConsole.flush();
             }
