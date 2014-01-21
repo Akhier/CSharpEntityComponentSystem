@@ -49,7 +49,7 @@ namespace CSharpEntityComponentSystem
                 case ComponentName.Flavor:
                     componentsOnEntities[entity].Add(componentname, new FlavorTextComponent());
                     break;
-                case ComponentName.Control:
+                case ComponentName.Player:
                     componentsOnEntities[entity].Add(componentname, new PlayerControlComponent());
                     break;
             }

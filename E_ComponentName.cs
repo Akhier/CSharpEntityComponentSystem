@@ -11,6 +11,6 @@ namespace CSharpEntityComponentSystem
         Coord,
         Display,
         Flavor,
-        Control
+        Player
     }
 }
