@@ -23,7 +23,9 @@ namespace CSharpEntityComponentSystem
         static void moveNorth() {
             List<UInt32> playerEntities = EntityManager.getEntitiesByComponent(ComponentName.Player);
             foreach (UInt32 entity in playerEntities) {
-                
+                if (MapSystem.checkTile(EntityManager.componentsOnEntities[entity][ComponentName.Coord].X, EntityManager.componentsOnEntities[entity][ComponentName.Coord].Y)) {
+
+                }
             }
         }
     }

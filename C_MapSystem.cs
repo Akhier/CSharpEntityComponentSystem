@@ -149,5 +149,9 @@ namespace CSharpEntityComponentSystem
                 return false;
             }
         }
+
+        static public bool checkTile(int x, int y) {
+            return Tile[x, y];
+        }
     }
 }

@@ -35,6 +35,16 @@ namespace CSharpEntityComponentSystem
             return tempEntitiesList;
         }
 
+        static public List<dynamic> getListOfAComponent(ComponentName componentname) {
+            List<dynamic> tempComponentList = new List<dynamic>();
+            foreach (UInt32 entity in componentsOnEntities.Keys) {
+                if (componentsOnEntities[entity].ContainsKey(componentname)) {
+                    tempComponentList.Add(componentsOnEntities[entity][componentname]);
+                }
+            }
+            return tempComponentList;
+        }
+
         static public void addComponentToEntity(ComponentName componentname, UInt32 entity) {
             switch (componentname) {
                 case ComponentName.Health:
