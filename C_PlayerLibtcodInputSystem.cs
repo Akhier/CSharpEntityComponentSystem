@@ -8,7 +8,7 @@ using libtcod;
 namespace CSharpEntityComponentSystem
 {
     static public class PlayerLibtcodInputSystem {
-        static public PlayerLibtcodInputSystem() {
+        static public void checkInput() {
             TCODKey pressedkey = TCODConsole.waitForKeypress(true);
             switch (pressedkey.KeyCode) {
                 case TCODKeyCode.Char:
@@ -28,7 +28,7 @@ namespace CSharpEntityComponentSystem
                 playerCoord.X = EntityManager.componentsOnEntities[entity][ComponentName.Coord].X;
                 playerCoord.Y = EntityManager.componentsOnEntities[entity][ComponentName.Coord].Y-1;
                 if ((MapSystem.checkTile(playerCoord.X,playerCoord.Y))&&(!(coordList.Exists(playerCoord)))) {
-
+                    EntityManager.componentsOnEntities[entity][ComponentName.Coord] = playerCoord;
                 }
             }
         }
