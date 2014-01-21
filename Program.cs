@@ -11,6 +11,7 @@ namespace CSharpEntityComponentSystem
     {
         static void Main(string[] args) {
             UInt32 player = EntityManager.addNewEntity();
+            EntityManager.addComponentToEntity(ComponentName.Player, player);
             EntityManager.addAndSetHealthComponent(12, 12, player);
             HealthSystem.checkDeaths();
             MapSystem map = new MapSystem(80, 50);
@@ -19,8 +20,9 @@ namespace CSharpEntityComponentSystem
             EntityManager.addAndSetDisplayComponent('@', true, DisplayLevel.Creature, player);
             LibtcodRenderSystem.drawMap();
             TCODConsole.flush();
-            while (TCODConsole.waitForKeypress(true).KeyCode != TCODKeyCode.Escape) {
-                MapSystem.newmap();
+            while (!TCODConsole.isWindowClosed()) {//(TCODConsole.waitForKeypress(true).KeyCode != TCODKeyCode.Escape) {
+                //MapSystem.newmap();
+                PlayerLibtcodInputSystem.checkInput();
                 LibtcodRenderSystem.drawMap();
                 TCODConsole.flush();
             }

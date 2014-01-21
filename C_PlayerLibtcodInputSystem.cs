@@ -11,9 +11,13 @@ namespace CSharpEntityComponentSystem
         static public void checkInput() {
             TCODKey pressedkey = TCODConsole.waitForKeypress(true);
             switch (pressedkey.KeyCode) {
+                case TCODKeyCode.Up:
+                    moveNorth();
+                    break;
                 case TCODKeyCode.Char:
                     switch (pressedkey.Character) {
                         case 'w':
+                            moveNorth();
                             break;
                     }
                     break;
@@ -24,11 +28,13 @@ namespace CSharpEntityComponentSystem
             List<UInt32> playerEntities = EntityManager.getEntitiesByComponent(ComponentName.Player);
             List<CoordinateComponent> coordList = EntityManager.getListOfAComponent<CoordinateComponent>(ComponentName.Coord);
             foreach (UInt32 entity in playerEntities) {
-                dynamic playerCoord = new CoordinateComponent();
-                playerCoord.X = EntityManager.componentsOnEntities[entity][ComponentName.Coord].X;
-                playerCoord.Y = EntityManager.componentsOnEntities[entity][ComponentName.Coord].Y-1;
-                if ((MapSystem.checkTile(playerCoord.X,playerCoord.Y))&&(!(coordList.Exists(playerCoord)))) {
+                CoordinateComponent playerCoord = EntityManager.componentsOnEntities[entity][ComponentName.Coord];
+                playerCoord.Y--;
+                if (MapSystem.checkTile(playerCoord.X,playerCoord.Y)) {
                     EntityManager.componentsOnEntities[entity][ComponentName.Coord] = playerCoord;
+                }
+                else {
+                    playerCoord.Y++;
                 }
             }
         }
