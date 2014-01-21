@@ -59,7 +59,7 @@ namespace CSharpEntityComponentSystem
                 if (entitydisplay.Render) {
                     CoordinateComponent entitycoords = EntityManager.componentsOnEntities[entity][ComponentName.Coord];
                     if (renderedEntities.ContainsKey(entitycoords)) {
-                        if  ((entitydisplay.displaylevel == DisplayLevel.Creature) || ((entitydisplay.displaylevel==DisplayLevel.Item)&&(EntityManager.componentsOnEntities[renderedEntities[entitycoords]][ComponentName.Display].displaylevel==DisplayLevel.Tile))) {
+                        if ((entitydisplay.displaylevel == DisplayLevel.Creature) || ((entitydisplay.displaylevel == DisplayLevel.Item) && (EntityManager.componentsOnEntities[renderedEntities[entitycoords]][ComponentName.Display].displaylevel == DisplayLevel.Tile))) {
                             TCODConsole.root.putChar(entitycoords.X, entitycoords.Y, EntityManager.componentsOnEntities[entity][ComponentName.Display].DisplayIcon);
                             renderedEntities[entitycoords] = entity;
                         }
