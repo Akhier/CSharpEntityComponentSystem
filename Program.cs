@@ -18,10 +18,10 @@ namespace CSharpEntityComponentSystem
             LibtcodRenderSystem render = new LibtcodRenderSystem(80, 50, "testing");
             EntityManager.addAndSetCoordComponent(MapSystem.Entrance.X, MapSystem.Entrance.Y, player);
             EntityManager.addAndSetDisplayComponent('@', true, DisplayLevel.Creature, player);
+            MapSystem.entityMapUpdate();
             LibtcodRenderSystem.drawMap();
             TCODConsole.flush();
-            while (!TCODConsole.isWindowClosed()) {//(TCODConsole.waitForKeypress(true).KeyCode != TCODKeyCode.Escape) {
-                //MapSystem.newmap();
+            while (!TCODConsole.isWindowClosed()) {
                 PlayerLibtcodInputSystem.checkInput();
                 MapSystem.entityMapUpdate();
                 LibtcodRenderSystem.drawMap();
