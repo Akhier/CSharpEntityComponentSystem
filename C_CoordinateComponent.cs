@@ -10,6 +10,24 @@ namespace CSharpEntityComponentSystem
         public override ComponentName getComponentName () {
             return ComponentName.Coord;
         }
+        public static bool operator ==(CoordinateComponent thiscoord,CoordinateComponent othercoord){
+            if ((thiscoord.X == othercoord.X) && (thiscoord.Y == othercoord.Y)) {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool operator !=(CoordinateComponent thiscoord, CoordinateComponent othercoord) {
+            if ((thiscoord.X != othercoord.X) || (thiscoord.Y != othercoord.Y)) {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public int X, Y;
     }
 }
