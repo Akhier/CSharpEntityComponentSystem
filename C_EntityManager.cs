@@ -77,5 +77,19 @@ namespace CSharpEntityComponentSystem
                 return false;
             }
         }
+
+        static public void addAndSetCoordComponent(int x, int y, UInt32 entity) {
+            addComponentToEntity(ComponentName.Coord, entity);
+            componentsOnEntities[entity][ComponentName.Coord].X = x;
+            componentsOnEntities[entity][ComponentName.Coord].Y = y;
+        }
+
+        static public void addAndSetDisplayComponent(char displayicon, bool render, DisplayLevel displaylevel, UInt32 entity) {
+            addComponentToEntity(ComponentName.Display, entity);
+            DisplayComponent display = componentsOnEntities[entity][ComponentName.Display];
+            display.DisplayIcon = displayicon;
+            display.Render = render;
+            display.displaylevel = displaylevel;
+        }
     }
 }

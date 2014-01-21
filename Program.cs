@@ -15,7 +15,7 @@ namespace CSharpEntityComponentSystem
             HealthSystem.setHP(player, 12);
             HealthSystem.checkDeaths();
             MapSystem map = new MapSystem(80, 50);
-            LibtcodRenderSystem render = new LibtcodRenderSystem(80, 50, "testing colors");
+            LibtcodRenderSystem render = new LibtcodRenderSystem(80, 50, "testing");
             LibtcodRenderSystem.drawMap();
             TCODConsole.flush();
             while (TCODConsole.waitForKeypress(true).KeyCode != TCODKeyCode.Escape) {
