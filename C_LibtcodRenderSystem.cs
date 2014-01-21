@@ -25,8 +25,14 @@ namespace CSharpEntityComponentSystem
                     TCODConsole.root.putChar(x, y, MapSystem.Tile[x, y] ? '.' : '#');
                 }
             }
-            TCODConsole.root.putChar(MapSystem.Entrance.X, MapSystem.Entrance.Y, '<');
-            TCODConsole.root.putChar(MapSystem.Exit.X, MapSystem.Exit.Y, '>');
+            //TCODConsole.root.putChar(MapSystem.Entrance.X, MapSystem.Entrance.Y, '<');
+            //TCODConsole.root.putChar(MapSystem.Exit.X, MapSystem.Exit.Y, '>');
+            List<UInt32> entitywithcoords = EntityManager.getEntitiesByComponent(ComponentName.Coord);
+            List<UInt32> entitywithdisplay = EntityManager.getEntitiesByComponent(ComponentName.Display);
+            var entitywithboth = entitywithcoords.Intersect(entitywithdisplay);
+            foreach (UInt32 entity in entitywithdisplay.Intersect(entitywithcoords)) {
+                TCODConsole.root.putChar(EntityManager.componentsOnEntities[entity][ComponentName.Coord].X, EntityManager.componentsOnEntities[entity][ComponentName.Coord].Y, EntityManager.componentsOnEntities[entity][ComponentName.Display].DisplayIcon);
+            }
         }
     }
 }
