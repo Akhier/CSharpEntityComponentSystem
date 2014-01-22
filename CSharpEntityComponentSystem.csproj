@@ -68,6 +68,7 @@
     <Compile Include="C_HealthComponent.cs" />
     <Compile Include="C_HealthSystem.cs" />
     <Compile Include="C_LibtcodRenderSystem.cs" />
+    <Compile Include="C_MainPlayerComponent.cs" />
     <Compile Include="C_MapSystem.cs" />
     <Compile Include="C_PlayerControlComponent.cs" />
     <Compile Include="C_PlayerLibtcodInputSystem.cs" />

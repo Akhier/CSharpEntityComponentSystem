@@ -97,6 +97,9 @@ namespace CSharpEntityComponentSystem
             } while(!checkposition(X,Y));
             Entrance.X = X;
             Entrance.Y = Y;
+            List<UInt32> mainplayer = EntityManager.getEntitiesByComponent(ComponentName.PlayerControl);
+            EntityManager.componentsOnEntities[mainplayer[0]][ComponentName.Coord].X = X;
+            EntityManager.componentsOnEntities[mainplayer[0]][ComponentName.Coord].Y = Y;
             bool[,] boolmap = new bool[Width, Height];
             for (int y = 0; y < Height; y++) {
                 for (int x = 0; x < Width; x++) {

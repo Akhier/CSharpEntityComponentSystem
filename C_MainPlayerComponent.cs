@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace CSharpEntityComponentSystem
 {
-    public enum ComponentName {
-        Health,
-        Coord,
-        Display,
-        Flavor,
-        PlayerControl,
-        MainPlayer
+    class MainPlayerComponent : Component {
+        public override ComponentName getComponentName() {
+            return ComponentName.MainPlayer;
+        }
     }
 }

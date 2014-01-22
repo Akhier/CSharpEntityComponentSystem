@@ -2,7 +2,7 @@
 {
     class PlayerControlComponent : Component {
         public override ComponentName getComponentName() {
-            return ComponentName.Player;
+            return ComponentName.PlayerControl;
         }
     }
 }

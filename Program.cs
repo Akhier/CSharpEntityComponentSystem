@@ -11,21 +11,19 @@ namespace CSharpEntityComponentSystem
     {
         static void Main(string[] args) {
             UInt32 player = EntityManager.addNewEntity();
-            EntityManager.addComponentToEntity(ComponentName.Player, player);
+            EntityManager.addComponentToEntity(ComponentName.MainPlayer, player);
+            EntityManager.addComponentToEntity(ComponentName.PlayerControl, player);
             EntityManager.addAndSetHealthComponent(12, 12, player);
-            HealthSystem.checkDeaths();
-            MapSystem map = new MapSystem(80, 50);
-            LibtcodRenderSystem render = new LibtcodRenderSystem(80, 50, "testing");
-            EntityManager.addAndSetCoordComponent(MapSystem.Entrance.X, MapSystem.Entrance.Y, player);
+            EntityManager.addComponentToEntity(ComponentName.Coord, player);
             EntityManager.addAndSetDisplayComponent('@', true, DisplayLevel.Creature, player);
-            MapSystem.entityMapUpdate();
-            LibtcodRenderSystem.drawMap();
-            TCODConsole.flush();
+            LibtcodRenderSystem render = new LibtcodRenderSystem(80, 50, "testing");
+            MapSystem map = new MapSystem(80, 50);
             while (!TCODConsole.isWindowClosed()) {
-                PlayerLibtcodInputSystem.checkInput();
+                HealthSystem.checkDeaths();
                 MapSystem.entityMapUpdate();
                 LibtcodRenderSystem.drawMap();
                 TCODConsole.flush();
+                PlayerLibtcodInputSystem.checkInput();
             }
         }
     }

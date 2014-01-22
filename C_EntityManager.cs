@@ -65,8 +65,11 @@ namespace CSharpEntityComponentSystem
                 case ComponentName.Flavor:
                     componentsOnEntities[entity].Add(componentname, new FlavorTextComponent());
                     break;
-                case ComponentName.Player:
+                case ComponentName.PlayerControl:
                     componentsOnEntities[entity].Add(componentname, new PlayerControlComponent());
+                    break;
+                case ComponentName.MainPlayer:
+                    componentsOnEntities[entity].Add(componentname, new MainPlayerComponent());
                     break;
             }
         }

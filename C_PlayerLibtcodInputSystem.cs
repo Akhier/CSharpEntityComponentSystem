@@ -53,13 +53,16 @@ namespace CSharpEntityComponentSystem
                         case 'a':
                             move(CardinalDirection.West);
                             break;
+                        case '>':
+                            goDownStairs();
+                            break;
                     }
                     break;
             }
         }
 
         static void move(CardinalDirection dir) {
-            List<UInt32> playerEntities = EntityManager.getEntitiesByComponent(ComponentName.Player);
+            List<UInt32> playerEntities = EntityManager.getEntitiesByComponent(ComponentName.PlayerControl);
             List<CoordinateComponent> coordList = EntityManager.getListOfAComponent<CoordinateComponent>(ComponentName.Coord);
             foreach (UInt32 entity in playerEntities) {
                 CoordinateComponent playerCoord = EntityManager.componentsOnEntities[entity][ComponentName.Coord];
@@ -89,6 +92,13 @@ namespace CSharpEntityComponentSystem
                         playerCoord.X--;
                     }
                 }
+            }
+        }
+
+        static void goDownStairs() {
+            CoordinateComponent playercoords = EntityManager.componentsOnEntities[EntityManager.getEntitiesByComponent(ComponentName.MainPlayer).First()][ComponentName.Coord];
+            if (playercoords == MapSystem.Exit) {
+                MapSystem.newmap();
             }
         }
     }
