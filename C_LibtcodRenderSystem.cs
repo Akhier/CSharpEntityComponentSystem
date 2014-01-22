@@ -53,19 +53,19 @@ namespace CSharpEntityComponentSystem
             //        entitywithboth.Remove(entity);
             //    }
             //}
-            Dictionary<CoordinateComponent, UInt32> renderedEntities = new Dictionary<CoordinateComponent, uint>();
+            Dictionary<CoordinateComponent, UInt32> renderedEntities = new Dictionary<CoordinateComponent, UInt32>();
             foreach (UInt32 entity in entitywithboth) {
                 DisplayComponent entitydisplay = EntityManager.componentsOnEntities[entity][ComponentName.Display];
                 if (entitydisplay.Render) {
                     CoordinateComponent entitycoords = EntityManager.componentsOnEntities[entity][ComponentName.Coord];
                     if (renderedEntities.ContainsKey(entitycoords)) {
                         if ((entitydisplay.displaylevel == DisplayLevel.Creature) || ((entitydisplay.displaylevel == DisplayLevel.Item) && (EntityManager.componentsOnEntities[renderedEntities[entitycoords]][ComponentName.Display].displaylevel == DisplayLevel.Tile))) {
-                            TCODConsole.root.putChar(entitycoords.X, entitycoords.Y, EntityManager.componentsOnEntities[entity][ComponentName.Display].DisplayIcon);
+                            TCODConsole.root.putChar(entitycoords.X, entitycoords.Y, entitydisplay.DisplayIcon);
                             renderedEntities[entitycoords] = entity;
                         }
                     }
                     else {
-                        TCODConsole.root.putChar(entitycoords.X, entitycoords.Y, EntityManager.componentsOnEntities[entity][ComponentName.Display].DisplayIcon);
+                        TCODConsole.root.putChar(entitycoords.X, entitycoords.Y, entitydisplay.DisplayIcon);
                         renderedEntities[entitycoords] = entity;
                     }
                 }
