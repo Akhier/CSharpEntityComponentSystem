@@ -13,45 +13,45 @@ namespace CSharpEntityComponentSystem
             switch (pressedkey.KeyCode) {
                 case TCODKeyCode.Up:
                 case TCODKeyCode.KeypadEight:
-                    move(CardinalDirection.North);
+                    movePlayer(CardinalDirection.North);
                     break;
                 case TCODKeyCode.Right:
                 case TCODKeyCode.KeypadSix:
-                    move(CardinalDirection.East);
+                    movePlayer(CardinalDirection.East);
                     break;
                 case TCODKeyCode.Down:
                 case TCODKeyCode.KeypadTwo:
-                    move(CardinalDirection.South);
+                    movePlayer(CardinalDirection.South);
                     break;
                 case TCODKeyCode.Left:
                 case TCODKeyCode.KeypadFour:
-                    move(CardinalDirection.West);
+                    movePlayer(CardinalDirection.West);
                     break;
                 case TCODKeyCode.KeypadNine:
-                    move(CardinalDirection.NorthEast);
+                    movePlayer(CardinalDirection.NorthEast);
                     break;
                 case TCODKeyCode.KeypadThree:
-                    move(CardinalDirection.SouthEast);
+                    movePlayer(CardinalDirection.SouthEast);
                     break;
                 case TCODKeyCode.KeypadOne:
-                    move(CardinalDirection.SouthWest);
+                    movePlayer(CardinalDirection.SouthWest);
                     break;
                 case TCODKeyCode.KeypadSeven:
-                    move(CardinalDirection.NorthWest);
+                    movePlayer(CardinalDirection.NorthWest);
                     break;
                 case TCODKeyCode.Char:
                     switch (pressedkey.Character) {
                         case 'w':
-                            move(CardinalDirection.North);
+                            movePlayer(CardinalDirection.North);
                             break;
                         case 'd':
-                            move(CardinalDirection.East);
+                            movePlayer(CardinalDirection.East);
                             break;
                         case 's':
-                            move(CardinalDirection.South);
+                            movePlayer(CardinalDirection.South);
                             break;
                         case 'a':
-                            move(CardinalDirection.West);
+                            movePlayer(CardinalDirection.West);
                             break;
                         case '>':
                             goDownStairs();
@@ -61,37 +61,50 @@ namespace CSharpEntityComponentSystem
             }
         }
 
-        static void move(CardinalDirection dir) {
+        static void move(CardinalDirection dir, UInt32 entity) {
+            CoordinateComponent entityCoord = EntityManager.componentsOnEntities[entity][ComponentName.Coord];
+            if ((dir == CardinalDirection.North) || (dir == CardinalDirection.NorthEast) || (dir == CardinalDirection.NorthWest))
+            {
+                entityCoord.Y--;
+            }
+            else if ((dir == CardinalDirection.South) || (dir == CardinalDirection.SouthEast) || (dir == CardinalDirection.SouthWest))
+            {
+                entityCoord.Y++;
+            }
+            if ((dir == CardinalDirection.West) || (dir == CardinalDirection.NorthWest) || (dir == CardinalDirection.SouthWest))
+            {
+                entityCoord.X--;
+            }
+            else if ((dir == CardinalDirection.East) || (dir == CardinalDirection.NorthEast) || (dir == CardinalDirection.SouthEast))
+            {
+                entityCoord.X++;
+            }
+            if (!(MapSystem.checkTile(entityCoord.X, entityCoord.Y) && MapSystem.entityMap[entityCoord.X, entityCoord.Y]))
+            {
+                if ((dir == CardinalDirection.North) || (dir == CardinalDirection.NorthEast) || (dir == CardinalDirection.NorthWest))
+                {
+                    entityCoord.Y++;
+                }
+                else if ((dir == CardinalDirection.South) || (dir == CardinalDirection.SouthEast) || (dir == CardinalDirection.SouthWest))
+                {
+                    entityCoord.Y--;
+                }
+                if ((dir == CardinalDirection.West) || (dir == CardinalDirection.NorthWest) || (dir == CardinalDirection.SouthWest))
+                {
+                    entityCoord.X++;
+                }
+                else if ((dir == CardinalDirection.East) || (dir == CardinalDirection.NorthEast) || (dir == CardinalDirection.SouthEast))
+                {
+                    entityCoord.X--;
+                }
+            }
+        }
+
+        static void movePlayer(CardinalDirection dir) {
             List<UInt32> playerEntities = EntityManager.getEntitiesByComponent(ComponentName.PlayerControl);
             List<CoordinateComponent> coordList = EntityManager.getListOfAComponent<CoordinateComponent>(ComponentName.Coord);
             foreach (UInt32 entity in playerEntities) {
-                CoordinateComponent playerCoord = EntityManager.componentsOnEntities[entity][ComponentName.Coord];
-                if ((dir == CardinalDirection.North) || (dir == CardinalDirection.NorthEast) || (dir == CardinalDirection.NorthWest)) {
-                    playerCoord.Y--;
-                }
-                else if ((dir == CardinalDirection.South) || (dir == CardinalDirection.SouthEast) || (dir == CardinalDirection.SouthWest)) {
-                    playerCoord.Y++;
-                }
-                if ((dir == CardinalDirection.West) || (dir == CardinalDirection.NorthWest) || (dir == CardinalDirection.SouthWest)) {
-                    playerCoord.X--;
-                }
-                else if ((dir == CardinalDirection.East) || (dir == CardinalDirection.NorthEast) || (dir == CardinalDirection.SouthEast)) {
-                    playerCoord.X++;
-                }
-                if (!(MapSystem.checkTile(playerCoord.X,playerCoord.Y) && MapSystem.entityMap[playerCoord.X,playerCoord.Y])) {
-                    if ((dir == CardinalDirection.North) || (dir == CardinalDirection.NorthEast) || (dir == CardinalDirection.NorthWest)) {
-                        playerCoord.Y++;
-                    }
-                    else if ((dir == CardinalDirection.South) || (dir == CardinalDirection.SouthEast) || (dir == CardinalDirection.SouthWest)) {
-                        playerCoord.Y--;
-                    }
-                    if ((dir == CardinalDirection.West) || (dir == CardinalDirection.NorthWest) || (dir == CardinalDirection.SouthWest)) {
-                        playerCoord.X++;
-                    }
-                    else if ((dir == CardinalDirection.East) || (dir == CardinalDirection.NorthEast) || (dir == CardinalDirection.SouthEast)) {
-                        playerCoord.X--;
-                    }
-                }
+                move(dir, entity);
             }
         }
 
